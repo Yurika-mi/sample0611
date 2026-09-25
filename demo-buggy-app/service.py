@@ -15,8 +15,13 @@ class TaskService:
         ]
 
     def get_tasks_by_user(self, user_id):
-        # Intentional bug: wrong key "user" causes KeyError.
-        return [task for task in self.tasks if task["user"] == user_id]
+        if isinstance(user_id, str):
+            matched_user_ids = [uid for uid, email in self.users.items() if email == user_id]
+            if not matched_user_ids:
+                return []
+            user_id = matched_user_ids[0]
+
+        return [task for task in self.tasks if task["user_id"] == user_id]
 
     def completion_rate(self, user_id):
         user_tasks = self.get_tasks_by_user(user_id)
