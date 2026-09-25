@@ -8,8 +8,7 @@ def run():
     # Intentional bug: email is passed, but service expects numeric user_id.
     user_tasks = service.get_tasks_by_user("alice@example.com")
 
-    # Intentional bug: NameError (task is undefined).
-    print("Task count:", len(task))
+    print("Task count:", len(user_tasks))
 
     rate = service.completion_rate("alice@example.com")
     print(f"Completion rate: {rate:.0%}")
